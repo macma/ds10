@@ -2,6 +2,9 @@ import tensorflow as tf
 import pandas as pd
 import random
 import os
+import tempfile
+import sys
+input_file = sys.argv[1]
 # df = pd.read_csv('DS10.csv', usecols = range(1,2709))
 # d = df.values
 # l= pd.read_csv('DS10.csv', usecols = [0])
@@ -20,7 +23,7 @@ def build_estimator(model_dir, model_type):
     elif model_type == "deep":
         m = tf.contrib.learn.DNNClassifier(model_dir=model_dir,
                                         feature_columns=wide_columns,
-                                        hidden_units=[100, 50])
+                                        hidden_units=[1000, 500])
     else:
         m = tf.contrib.learn.DNNLinearCombinedClassifier(
             model_dir=model_dir,
@@ -68,7 +71,7 @@ def train():
     # df_trainl = pd.read_csv('1.csv', usecols = [0])
     # df_testl = pd.read_csv('2.csv', usecols = [0])
 
-    model_dir = ''#tempfile.mkdtemp() if not model_dir else model_dir
+    model_dir = 'tmp'#tempfile.mkdtemp() if not model_dir else model_dir
     print("model directory = %s" % model_dir)
 
     m = build_estimator(model_dir, 'wide')
@@ -111,7 +114,7 @@ def shuffle():
 # filename_queue = tf.train.string_input_producer('DS10.csv')
 # reader = tf.TextLineReader(skip_header_lines=0)
 # shuffle()
-# os.system("python libsvm2csv.py 1.txt 1.csv 2709")
+os.system("python libsvm2csv.py " + input_file + " 2.csv 2709")
 # os.system("python libsvm2csv.py 2.txt 2.csv 2709")
 # os.system("python libsvm2csv.py 3.txt 3.csv 2709")
 train()
