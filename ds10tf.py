@@ -9,7 +9,8 @@ input_file = sys.argv[1]
 # d = df.values
 # l= pd.read_csv('DS10.csv', usecols = [0])
 # labels = l.values
-colcount = 2709
+colcount = 2709#235
+noofrecords = 1000#613 #1000
 COLUMNS = []
 COLUMNS.append('label')
 for i in range (0, colcount):
@@ -112,9 +113,9 @@ def shuffle():
     thefile2 = open('2.txt', 'w')
     thefile3 = open('3.txt', 'w')
     for item in lines:
-        if(count<=800):
+        if(count<=0.8*noofrecords):
             thefile1.write("%s" % item)
-        elif(count<=1000):
+        elif(count<=noofrecords):
             thefile2.write("%s" % item)
         else:
             thefile3.write("%s" % item)
